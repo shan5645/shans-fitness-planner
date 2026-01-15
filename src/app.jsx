@@ -40,7 +40,6 @@ export default function FitnessPlanner() {
   const calculateCalories = () => {
     const { weight, age, gender, activityLevel, goal } = formData;
     
-    // Simplified BMR calculation without height
     let bmr;
     if (gender === 'male') {
       bmr = 13.7 * weight + 5 * age + 66;
@@ -48,7 +47,6 @@ export default function FitnessPlanner() {
       bmr = 9.6 * weight + 1.8 * age + 655;
     }
 
-    // Activity multipliers
     const activityMultipliers = {
       sedentary: 1.2,
       light: 1.375,
@@ -59,7 +57,6 @@ export default function FitnessPlanner() {
 
     let tdee = bmr * activityMultipliers[activityLevel];
 
-    // Adjust based on goal
     if (goal === 'lose-weight') {
       tdee -= 500;
     } else if (goal === 'gain-muscle') {
@@ -329,3 +326,110 @@ export default function FitnessPlanner() {
               </div>
               
               <div className="bg-gradient-to-br from-purple-100 to-pink-100 p-6 rounded-2xl mb-6 border-4 border-purple-400 shadow-xl">
+                <div className="flex items-center gap-2 justify-center">
+                  <Zap className="text-yellow-500 animate-pulse" size={28} />
+                  <p className="text-2xl font-black text-purple-800">Focus: {plan.workout.focus}</p>
+                  <Zap className="text-yellow-500 animate-pulse" size={28} />
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                {plan.workout.schedule.map((item, index) => (
+                  <div key={index} className="p-5 bg-white border-4 border-purple-300 rounded-2xl shadow-lg transform hover:scale-105 hover:border-purple-500 transition-all duration-300">
+                    <p className="font-bold text-xl text-purple-700 mb-2">📅 {item.day}</p>
+                    <p className="text-gray-800 text-lg">{item.workout}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-8 p-6 bg-gradient-to-r from-yellow-300 to-orange-300 border-4 border-yellow-500 rounded-2xl shadow-xl">
+              <p className="text-gray-800 font-semibold text-center">
+                ⚠️ <strong>Important:</strong> This plan is a general guideline. Please consult with a healthcare provider or certified fitness professional before starting any new diet or exercise program. 🏥
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div 
+      className="min-h-screen p-4 md:p-8 relative"
+      style={backgroundImage ? backgroundStyle : {}}
+    >
+      <div className={`absolute inset-0 ${backgroundImage ? 'bg-black/40' : 'bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400'}`}></div>
+      
+      <div className="relative z-10 max-w-2xl mx-auto">
+        {showUpload && (
+          <div className="mb-6 flex justify-center">
+            <label className="cursor-pointer bg-white/90 backdrop-blur-lg px-6 py-3 rounded-full shadow-xl border-4 border-yellow-400 hover:scale-110 transition-all duration-300 flex items-center gap-2 font-bold text-gray-800">
+              <Upload size={24} className="text-purple-600" />
+              {backgroundImage ? 'Change Background Image' : 'Upload Background Image'}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="hidden"
+              />
+            </label>
+            {backgroundImage && (
+              <button
+                onClick={removeBackground}
+                className="ml-3 bg-red-500 text-white px-4 py-3 rounded-full shadow-xl hover:scale-110 transition-all duration-300 flex items-center gap-2 font-bold"
+              >
+                <X size={24} />
+              </button>
+            )}
+          </div>
+        )}
+
+        <div className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-6 md:p-8 mb-6 border-4 border-yellow-400 transform hover:scale-105 transition-all duration-300">
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <Dumbbell className="text-orange-500 animate-bounce" size={48} />
+              <h1 className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
+                Shan's Fitness & Nutrition Planner
+              </h1>
+              <Heart className="text-red-500 animate-pulse" size={48} />
+            </div>
+            <p className="text-xl text-gray-700 font-semibold">Transform Your Body, Transform Your Life! 💪✨</p>
+          </div>
+        </div>
+
+        <div className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-6 md:p-8 border-4 border-pink-400">
+          <div className="space-y-6">
+            <div className="transform hover:scale-105 transition-all duration-300">
+              <label className="block text-lg font-bold text-gray-800 mb-2">👤 Your Name</label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                className="w-full px-6 py-3 border-4 border-purple-300 rounded-2xl focus:border-purple-500 focus:outline-none text-lg font-semibold shadow-lg"
+                placeholder="Enter your name"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="transform hover:scale-105 transition-all duration-300">
+                <label className="block text-lg font-bold text-gray-800 mb-2">🎂 Age</label>
+                <input
+                  type="number"
+                  name="age"
+                  value={formData.age}
+                  onChange={handleInputChange}
+                  className="w-full px-6 py-3 border-4 border-blue-300 rounded-2xl focus:border-blue-500 focus:outline-none text-lg font-semibold shadow-lg"
+                  placeholder="Years"
+                />
+              </div>
+
+              <div className="transform hover:scale-105 transition-all duration-300">
+                <label className="block text-lg font-bold text-gray-800 mb-2">⚧️ Gender</label>
+                <select
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleInputChange}
+                  className="w-full px-6 py-3 border-4 border-blue-300 rounded-2xl focus:border-blue-500 focus:outline-none text-lg font-semibold shadow-lg"
+                >
