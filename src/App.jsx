@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// Updated
+   import React, { useState } from 'react';
 import { Activity, Target, Utensils, Dumbbell, Heart, Zap, Upload, X } from 'lucide-react';
 
 export default function FitnessPlanner() {
