@@ -1,5 +1,4 @@
-// Updated
-   import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Activity, Target, Utensils, Dumbbell, Heart, Zap, Upload, X } from 'lucide-react';
 
 export default function FitnessPlanner() {
@@ -434,3 +433,79 @@ export default function FitnessPlanner() {
                   onChange={handleInputChange}
                   className="w-full px-6 py-3 border-4 border-blue-300 rounded-2xl focus:border-blue-500 focus:outline-none text-lg font-semibold shadow-lg"
                 >
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="transform hover:scale-105 transition-all duration-300">
+              <label className="block text-lg font-bold text-gray-800 mb-2">⚖️ Weight (kg)</label>
+              <input
+                type="number"
+                name="weight"
+                value={formData.weight}
+                onChange={handleInputChange}
+                className="w-full px-6 py-3 border-4 border-green-300 rounded-2xl focus:border-green-500 focus:outline-none text-lg font-semibold shadow-lg"
+                placeholder="kg"
+              />
+            </div>
+
+            <div className="transform hover:scale-105 transition-all duration-300">
+              <label className="block text-lg font-bold text-gray-800 mb-2">🎯 Fitness Goal</label>
+              <select
+                name="goal"
+                value={formData.goal}
+                onChange={handleInputChange}
+                className="w-full px-6 py-3 border-4 border-orange-300 rounded-2xl focus:border-orange-500 focus:outline-none text-lg font-semibold shadow-lg"
+              >
+                <option value="lose-weight">🔥 Lose Weight</option>
+                <option value="gain-muscle">💪 Gain Muscle</option>
+                <option value="get-slim">✨ Get Slim/Toned</option>
+                <option value="maintain">🏃 Maintain Fitness</option>
+              </select>
+            </div>
+
+            <div className="transform hover:scale-105 transition-all duration-300">
+              <label className="block text-lg font-bold text-gray-800 mb-2">⚡ Activity Level</label>
+              <select
+                name="activityLevel"
+                value={formData.activityLevel}
+                onChange={handleInputChange}
+                className="w-full px-6 py-3 border-4 border-yellow-300 rounded-2xl focus:border-yellow-500 focus:outline-none text-lg font-semibold shadow-lg"
+              >
+                <option value="sedentary">🛋️ Sedentary (little to no exercise)</option>
+                <option value="light">🚶 Light (exercise 1-3 days/week)</option>
+                <option value="moderate">🏃 Moderate (exercise 3-5 days/week)</option>
+                <option value="active">🏋️ Active (exercise 6-7 days/week)</option>
+                <option value="veryActive">💪 Very Active (intense exercise daily)</option>
+              </select>
+            </div>
+
+            <div className="transform hover:scale-105 transition-all duration-300">
+              <label className="block text-lg font-bold text-gray-800 mb-2">🍽️ Diet Preference</label>
+              <select
+                name="dietPreference"
+                value={formData.dietPreference}
+                onChange={handleInputChange}
+                className="w-full px-6 py-3 border-4 border-pink-300 rounded-2xl focus:border-pink-500 focus:outline-none text-lg font-semibold shadow-lg"
+              >
+                <option value="balanced">⚖️ Balanced</option>
+                <option value="vegetarian">🥗 Vegetarian</option>
+                <option value="vegan">🌱 Vegan</option>
+                <option value="keto">🥑 Keto</option>
+              </select>
+            </div>
+
+            <button
+              onClick={handleGenerate}
+              className="w-full bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 text-white py-5 rounded-2xl font-black text-2xl hover:from-purple-700 hover:via-pink-700 hover:to-orange-700 transition transform hover:scale-110 shadow-2xl border-4 border-yellow-400"
+            >
+              🚀 Generate My Plan! 🚀
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
