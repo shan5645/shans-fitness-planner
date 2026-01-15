@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Activity, Target, Utensils, Dumbbell, Heart, Zap, Upload, X } from 'lucide-react';
+import { Activity, Target, Utensils, Dumbbell, Heart, Zap } from 'lucide-react';
 
 export default function FitnessPlanner() {
   const [formData, setFormData] = useState({
@@ -12,29 +12,12 @@ export default function FitnessPlanner() {
     dietPreference: 'balanced'
   });
   const [plan, setPlan] = useState(null);
-  const [backgroundImage, setBackgroundImage] = useState(null);
-  const [showUpload, setShowUpload] = useState(true);
 
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
-  };
-
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setBackgroundImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const removeBackground = () => {
-    setBackgroundImage(null);
   };
 
   const calculateCalories = () => {
@@ -211,45 +194,22 @@ export default function FitnessPlanner() {
     });
   };
 
-  const backgroundStyle = backgroundImage ? {
-    backgroundImage: `url(${backgroundImage})`,
+  const backgroundStyle = {
+    backgroundImage: 'url(/gym.jpg)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat'
-  } : {};
+  };
 
   if (plan) {
     return (
       <div 
         className="min-h-screen p-4 md:p-8 animate-pulse-slow relative"
-        style={backgroundImage ? backgroundStyle : {}}
+        style={backgroundStyle}
       >
-        <div className={`absolute inset-0 ${backgroundImage ? 'bg-black/40' : 'bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400'}`}></div>
+        <div className="absolute inset-0 bg-black/50"></div>
         
         <div className="relative z-10 max-w-5xl mx-auto">
-          {showUpload && (
-            <div className="mb-6 flex justify-end">
-              <label className="cursor-pointer bg-white/90 backdrop-blur-lg px-6 py-3 rounded-full shadow-xl border-4 border-yellow-400 hover:scale-110 transition-all duration-300 flex items-center gap-2 font-bold text-gray-800">
-                <Upload size={24} className="text-purple-600" />
-                {backgroundImage ? 'Change Background Image' : 'Upload Background Image'}
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                  className="hidden"
-                />
-              </label>
-              {backgroundImage && (
-                <button
-                  onClick={removeBackground}
-                  className="ml-3 bg-red-500 text-white px-4 py-3 rounded-full shadow-xl hover:scale-110 transition-all duration-300 flex items-center gap-2 font-bold"
-                >
-                  <X size={24} />
-                </button>
-              )}
-            </div>
-          )}
-
           <div className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-6 md:p-8 mb-6 border-4 border-yellow-400 transform hover:scale-105 transition-all duration-300">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
@@ -357,34 +317,11 @@ export default function FitnessPlanner() {
   return (
     <div 
       className="min-h-screen p-4 md:p-8 relative"
-      style={backgroundImage ? backgroundStyle : {}}
+      style={backgroundStyle}
     >
-      <div className={`absolute inset-0 ${backgroundImage ? 'bg-black/40' : 'bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400'}`}></div>
+      <div className="absolute inset-0 bg-black/50"></div>
       
       <div className="relative z-10 max-w-2xl mx-auto">
-        {showUpload && (
-          <div className="mb-6 flex justify-center">
-            <label className="cursor-pointer bg-white/90 backdrop-blur-lg px-6 py-3 rounded-full shadow-xl border-4 border-yellow-400 hover:scale-110 transition-all duration-300 flex items-center gap-2 font-bold text-gray-800">
-              <Upload size={24} className="text-purple-600" />
-              {backgroundImage ? 'Change Background Image' : 'Upload Background Image'}
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-                className="hidden"
-              />
-            </label>
-            {backgroundImage && (
-              <button
-                onClick={removeBackground}
-                className="ml-3 bg-red-500 text-white px-4 py-3 rounded-full shadow-xl hover:scale-110 transition-all duration-300 flex items-center gap-2 font-bold"
-              >
-                <X size={24} />
-              </button>
-            )}
-          </div>
-        )}
-
         <div className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-6 md:p-8 mb-6 border-4 border-yellow-400 transform hover:scale-105 transition-all duration-300">
           <div className="text-center">
             <div className="flex items-center justify-center gap-3 mb-4">
